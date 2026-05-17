@@ -1,4 +1,4 @@
-package ec.edu.puce.githubclient.ui.theme
+package ec.edu.puce.githubclient.ui.theme.theme
 
 import androidx.compose.ui.graphics.Color
 

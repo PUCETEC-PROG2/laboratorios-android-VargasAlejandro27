@@ -1,6 +1,5 @@
-package ec.edu.puce.githubclient.ui.theme
+package ec.edu.puce.githubclient.ui.theme.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
