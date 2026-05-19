@@ -1,7 +1,5 @@
-package ec.edu.puce.githubclient.ui.theme.componets
+package ec.edu.puce.githubclient.ui.components
 
-import android.R
-import android.accessibilityservice.GestureDescription
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,74 +18,87 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import java.net.URL
-
+import ec.edu.puce.githubclient.models.GithubUser
+import ec.edu.puce.githubclient.models.Repository
 
 @Composable
-fun RepoItem (
-    name: String,
-    description: String?,
-    avatarURL: String,
-    language: String?
-) {
-    Card (
+fun RepoItem(repository: Repository) {
+
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-    ){
-        Row (
+            .padding(all = 8.dp)
+    ) {
+
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
-        ){
+                .padding(all = 16.dp)
+        ) {
+
             AsyncImage(
-                model = avatarURL,
-                contentDescription = "imagen de $name",
-                modifier = Modifier.size(60.dp),
+                model = repository.owner.avatarUrl,
+                contentDescription = "Imagen de ${repository.name}",
+                modifier = Modifier.size(size = 60.dp),
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(width = 16.dp))
 
             Column {
+
                 Text(
-                    text = name,
+                    text = repository.name,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
 
-                Spacer(modifier = Modifier.height(4.dp))
+                repository.description?.let {
 
-                if (!description.isNullOrBlank()) {
-                    Text(
-                        text = description,
-                        style = MaterialTheme.typography.bodySmall,
-                    )
+                    if (it.isNotEmpty()) {
+
+                        Spacer(modifier = Modifier.height(height = 4.dp))
+
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = 3
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                repository.language?.let {
 
-                if (!language.isNullOrBlank()) {
-                    Text(
-                        text = language,
-                        style = MaterialTheme.typography.labelSmall,
-                    )
+                    if (it.isNotEmpty()) {
+
+                        Spacer(modifier = Modifier.height(height = 4.dp))
+
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.labelSmall,
+                        )
+                    }
                 }
             }
         }
     }
 }
 
-
-
 @Preview(showBackground = true)
 @Composable
-fun RepoItemPreview(){
+fun RepoItemPreview() {
+
     RepoItem(
-        name = "repositorio de Israel",
-        description = "repositorio creado por Israel",
-        avatarURL = "aadsdsadsadsa",
-        language = "JAVAAAA"
+        repository = Repository(
+            id = 123L,
+            name = "Repositorio Django",
+            owner = GithubUser(
+                id = 123L,
+                login = "django",
+                avatarUrl = "https://avatars.githubusercontent.com/u/191403759?v=4"
+            ),
+            description = "Proyecto de Python",
+            language = "Python"
+        )
     )
 }
