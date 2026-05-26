@@ -15,18 +15,10 @@ object RetrofitClient {
     }
 
     private val httpClient = OkHttpClient.Builder()
+        .connectTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+        .readTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+        .writeTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
         .addInterceptor(logging)
-        .addInterceptor { chain ->
-
-            val token = BuildConfig.GITHUB_TOKEN
-
-            val request = chain.request()
-                .newBuilder()
-                .addHeader("Authorization", "Bearer $token")
-                .build()
-
-            chain.proceed(request)
-        }
         .build()
 
     val apiService: ApiService by lazy {

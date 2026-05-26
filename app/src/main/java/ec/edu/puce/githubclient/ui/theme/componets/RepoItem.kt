@@ -1,4 +1,4 @@
-package ec.edu.puce.githubclient.ui.components
+package ec.edu.puce.githubclient.ui.theme.componets
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,8 +40,10 @@ fun RepoItem(repository: Repository) {
 
             AsyncImage(
                 model = repository.owner.avatarUrl,
-                contentDescription = "Imagen de ${repository.name}",
-                modifier = Modifier.size(size = 60.dp),
+                contentDescription = "Avatar de ${repository.owner.login}",
+                modifier = Modifier
+                    .size(size = 60.dp)
+                    .clip(CircleShape),
                 contentScale = ContentScale.Crop
             )
 
@@ -90,10 +94,10 @@ fun RepoItemPreview() {
 
     RepoItem(
         repository = Repository(
-            id = 123L,
+            id = "123",
             name = "Repositorio Django",
             owner = GithubUser(
-                id = 123L,
+                id = "123",
                 login = "django",
                 avatarUrl = "https://avatars.githubusercontent.com/u/191403759?v=4"
             ),
