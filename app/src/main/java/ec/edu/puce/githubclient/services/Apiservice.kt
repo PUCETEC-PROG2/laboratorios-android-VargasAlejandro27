@@ -1,6 +1,5 @@
 package ec.edu.puce.githubclient.services
 
-import coil.memory.MemoryCache
 import ec.edu.puce.githubclient.models.Repository
 import ec.edu.puce.githubclient.models.RepositoryPayload
 import retrofit2.http.Body
@@ -16,9 +15,9 @@ interface ApiService {
         @Query(value = "sort") sort: String = "created",
         @Query(value = "direction") direction: String = "desc"
     ): List<Repository>
+
     @POST(value = "/user/repos")
-    suspend fun CreateRepostory (
+    suspend fun createRepository (
         @Body repository: RepositoryPayload
     ): Repository
 }
-
